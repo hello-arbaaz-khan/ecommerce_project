@@ -12,7 +12,6 @@ class SignupView(APIView):
     def post(self,request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
             return Response({'message':'User created Successfully'},status=201)
         return Response(serializer.errors,status=400)  
     

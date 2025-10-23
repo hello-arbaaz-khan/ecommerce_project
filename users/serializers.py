@@ -40,8 +40,8 @@ class LoginSerializer(serializers.Serializer):
         if user and user.is_active:
             refresh = RefreshToken.for_user(user)
             return {
-                'message': f"Welcome {user.username}!",
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)
+                "message": f"Welcome {user.username}!",
+                "refresh": str(refresh),
+                "access": str(refresh.access_token)
             }
         raise serializers.ValidationError('Invalid Credentials')
