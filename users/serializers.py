@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import serializers
 
 
@@ -37,5 +38,10 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=username,password=password)
         # check if user is valid and active
         if user and user.is_active:
-            return {'user':user}
+            refresh = RefreshToken.for_user(user)
+            return {
+                'message': f"Welcome {user.username}!",
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            }
         raise serializers.ValidationError('Invalid Credentials')
