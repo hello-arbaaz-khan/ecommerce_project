@@ -9,21 +9,22 @@ from django.utils.decorators import method_decorator
 # Create your views here.
 @method_decorator(csrf_exempt, name='dispatch')
 class SignupView(APIView):
-    def post(self,request):
+    def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message':'User created Successfully'},status=201)
-        return Response(serializer.errors,status=400)  
-    
+            return Response({'message': 'User created successfully'}, status=201)
+        return Response(serializer.errors, status=400)
+  
+@method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
-    def post(self,request):
+    def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            return Response(serializer.validated_data,status=200)
-        return Response(serializer.errors,status=401)
+            return Response(serializer.validated_data, status=200)
+        return Response(serializer.errors, status=401)
 
 class LogoutView(APIView):
-    def post(self,request):
+    def post(self, request):
         logout(request)
         return Response({'message':'logged out successfully!'},status=200)
