@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-njvowmw7c_&=i_&zx9!%j2@xen6@32f=_!nvv&9hd6^v4qkr==
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = [
+    os.getenv('CSRF_TRUSTED_ORIGINS', 'https://ecommerce-project.up.railway.app')
+]
 
 # Application definition
 
