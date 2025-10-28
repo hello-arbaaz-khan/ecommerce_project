@@ -12,10 +12,11 @@ class SignupView(APIView):
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() 
+            print("Signup API hit!")
             return Response({'message': 'User created successfully'}, status=201)
         return Response(serializer.errors, status=400)
-  
+
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
     def post(self, request):
