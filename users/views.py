@@ -22,13 +22,12 @@ class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            data = serializer.validated_data
-            user = data['user']
-            return Response({
-                'message': f'Welcome {user.username}!',
-                'refresh': data['refresh'],
-                'access': data['access']
-            })
+           data = serializer.validated_data
+           return Response({
+               'message': data['message'],
+               'refresh': data['refresh'],
+               'access': data['access']
+           })
         return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(APIView):

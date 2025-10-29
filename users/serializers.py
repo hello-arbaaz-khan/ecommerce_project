@@ -13,7 +13,7 @@ class SignupSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         user = User.objects.create_user(**validated_data)
         return user
-    
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False)
     username = serializers.CharField(required=False)
@@ -38,10 +38,10 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=username,password=password)
         # check if user is valid and active
         if user and user.is_active:
-            refresh = RefreshToken.for_user(user)
-            return {
-                "message": f"Welcome {user.username}!",
-                "refresh": str(refresh),
-                "access": str(refresh.access_token)
-            }
+           refresh = RefreshToken.for_user(user)
+           data["user"] = user
+           data["message"] = f"Welcome {user.username}!"
+           data["refresh"] = str(refresh)
+           data["access"] = str(refresh.access_token)
+           return data
         raise serializers.ValidationError('Invalid Credentials')
