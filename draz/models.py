@@ -26,3 +26,10 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     def get_subtotal(self):
         return self.product.price * self.quantity
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=200, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True,blank=True)
+    def __str__(self):
+        return f"{self.user.username} Profile"
